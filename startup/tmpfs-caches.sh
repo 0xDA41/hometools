@@ -20,6 +20,8 @@ DIRLIST=(
   "$HOME/.var/app/com.discordapp.Discord/config/discord/DawnWebGPUCache",copy,flatpak-discord-electron-DawnWebGPUCache
   "$HOME/.var/app/com.discordapp.Discord/config/discord/GPUCache",copy,flatpak-discord-electron-GPUCache
   "$HOME/.var/app/org.telegram.desktop/cache",copy,flatpak-telegram-main-cache 
+  "$HOME/.config/Signal/Cache",copy,signal-electron-cache
+  "$HOME/.config/Signal/Code Cache",copy,signal-code-cache
 )
 
 tmpdir="/tmp/$USER-cache"

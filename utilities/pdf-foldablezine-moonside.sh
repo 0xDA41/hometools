@@ -1,0 +1,28 @@
+#!/bin/bash
+ 
+FILENAME_INPUT=$1
+FILENAME_STUB=$(basename "$FILENAME_INPUT" .pdf)
+
+FILENAME_OUTPUT="$FILENAME_STUB-foldable.pdf"
+
+FILENAME_TEMP1="$FILENAME_STUB-temp1.pdf"
+FILENAME_TEMP2="$FILENAME_STUB-temp2.pdf"
+FILENAME_TEMP3="$FILENAME_STUB-temp3.pdf"
+FILENAME_TEMP4="$FILENAME_STUB-temp4.pdf"
+
+FILENAME_TEMP_FRONT="$FILENAME_STUB-front.pdf"
+FILENAME_TEMP_BACK="$FILENAME_STUB-back.pdf"
+
+pdfjam "$FILENAME_INPUT" '5-2' --angle 180 --a4paper --outfile "$FILENAME_TEMP1"
+pdfjam "$FILENAME_INPUT" '6-8,1' --a4paper --outfile "$FILENAME_TEMP2"
+
+pdfjam "$FILENAME_TEMP1" "$FILENAME_TEMP2" --landscape --a4paper --nup 4x2 --outfile "$FILENAME_TEMP_FRONT"
+
+pdfjam "$FILENAME_INPUT" '10-13' --angle 180 --a4paper --outfile "$FILENAME_TEMP3"
+pdfjam "$FILENAME_INPUT" '9,16-14' --a4paper --outfile "$FILENAME_TEMP4"
+
+pdfjam "$FILENAME_TEMP3" "$FILENAME_TEMP4" --landscape --a4paper --nup 4x2 --outfile "$FILENAME_TEMP_BACK"
+
+pdfjam "$FILENAME_TEMP_FRONT" "$FILENAME_TEMP_BACK" --landscape --a4paper --longedge --outfile "$FILENAME_OUTPUT"
+
+rm "$FILENAME_TEMP1" "$FILENAME_TEMP2" "$FILENAME_TEMP3" "$FILENAME_TEMP4" "$FILENAME_TEMP_FRONT" "$FILENAME_TEMP_BACK"
